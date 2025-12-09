@@ -1,11 +1,14 @@
 <div id="event-log-report-modal" class="modal">
     <div class="modal-content large">
         <div class="modal-header">
-            <h2 class="modal-title">📄 事件紀錄報告</h2>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <h2 class="modal-title">📄 事件紀錄報告</h2>
+                <button class="action-btn danger" id="report-delete-event-btn" style="padding: 6px 14px; font-size: 0.9rem; opacity: 0.9;">🗑️ 刪除</button>
+            </div>
+
             <div class="action-buttons">
                 <button class="action-btn info" id="save-report-as-pdf-btn">📄 另存 PDF</button> 
                 <button class="action-btn warn" id="edit-event-log-btn">✏️ 編輯</button>
-                <button class="action-btn danger" id="report-delete-event-btn">🗑️ 刪除</button>
                 <button class="close-btn" onclick="closeModal('event-log-report-modal')">&times;</button>
             </div>
         </div>
@@ -191,7 +194,7 @@
         background: none !important;
         color: #000 !important;
     }
-    .modal-header .action-buttons {
+    .modal-header .action-buttons, #report-delete-event-btn {
         display: none !important;
     }
 }

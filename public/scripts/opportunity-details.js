@@ -1,8 +1,9 @@
 // views/scripts/opportunity-details.js (重構後的主控制器)
 
 // ==================== 全域變數 (此頁面專用) ====================
-let currentDetailOpportunityId = null; // 用於儲存當前詳細頁的機會ID
-let currentOpportunityData = null; 
+// 【修正】將變數明確掛載到 window，讓 Modal 腳本可以讀取
+window.currentDetailOpportunityId = null; // 用於儲存當前詳細頁的機會ID
+window.currentOpportunityData = null; 
 
 
 // ==================== 主要載入與渲染函式 ====================
@@ -12,7 +13,9 @@ let currentOpportunityData = null;
  * @param {string} opportunityId - 機會ID
  */
 async function loadOpportunityDetailPage(opportunityId) {
-    currentDetailOpportunityId = opportunityId;
+    // 【修正】使用 window. 變數，確保全域狀態更新
+    window.currentDetailOpportunityId = opportunityId;
+    
     const container = document.getElementById('page-opportunity-details');
     container.innerHTML = `<div class="loading show" style="padding-top: 50px;"><div class="spinner"></div><p>正在載入機會詳細資料...</p></div>`;
 
@@ -24,8 +27,9 @@ async function loadOpportunityDetailPage(opportunityId) {
         if (!result.success) throw new Error(result.error);
         
         const { opportunityInfo, interactions, eventLogs, linkedContacts, potentialContacts, parentOpportunity, childOpportunities } = result.data;
-        // 將資料儲存在局部變數中，並透過 init 函式傳遞給其他模組
-        currentOpportunityData = opportunityInfo; 
+        
+        // 【修正】將資料儲存在 window 變數中，讓其他模組（如關聯聯絡人 Modal）可以存取
+        window.currentOpportunityData = opportunityInfo; 
 
         // 1. 渲染主模板並設定標題
         container.innerHTML = opportunityDetailPageTemplate;
